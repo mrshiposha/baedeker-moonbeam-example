@@ -1,4 +1,4 @@
-# baedeker-example
+# baedeker-moonbeam-example
 
 This example sets up the Polkadot Relay, Asset Hub, and Moonbeam chains.
 
@@ -12,7 +12,7 @@ direnv: error <PATH TO>/.envrc is blocked. Run `direnv allow` to approve its con
 3. Run `direnv allow`.
 4. Run `cd .baedeker`.
 5. Run `cp rewrites.example.jsonnet rewrites.jsonnet`
-6. The Relay and Asset Hub binaries will extracted from the docker images. But the Moonbeam binary is to be provided by you since you will modify Moonbeam's code. It is convenient to use your local binary. So, fix the `rewrites.jsonnet` by providing the correct path to Moonbeam's binary.
+6. The Relay and Asset Hub binaries will extracted from the docker images. But the Moonbeam binary is to be provided by you since it is assumed you'll modify Moonbeam's code. It is convenient to use your local binary. So, fix the `rewrites.jsonnet` by providing the correct path to Moonbeam's binary.
 7. Try to run the networks (remember, we are still in the `.baedeker` directory):
 ```
 ./up.sh chains.jsonnet
