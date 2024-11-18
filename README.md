@@ -112,4 +112,4 @@ direnv: export +AR +AS +BDK_BALANCER +CC +CONFIG_SHELL +CXX +DETERMINISTIC_BUILD
 ```
 
 You can open the link the baedeker tells you (`http://127.0.0.1:9699/` in the example above). The link is provided via the `$BDK_BALANCER` env variable.
-When opened, you'll see a list of links to the running chains in the browser. 
+When opened, you'll see a list of links to the running chains (the links to PolkadotJS/Apps UI connected to the corresponding chains). 
