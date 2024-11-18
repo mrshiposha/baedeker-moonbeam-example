@@ -76,3 +76,40 @@ TMPDIR=./.tmp ./up.sh chains.jsonnet
 
 8. To shut the networks down, run `./down.sh`.
 9. Always do `./down.sh` before trying to start networks.
+
+When you run `./up.sh chains.jsonnet` you should see something like the following (if everything's alright)
+```console
+ ✔ Network bdk-env_default                                          Created                                                                                                           0.1s 
+ ✔ Volume "bdk-env_chaindata-relay-moonbeam-node-alith-parent"      Created                                                                                                           0.0s 
+ ✔ Volume "bdk-env_chaindata-relay-node-alice"                      Created                                                                                                           0.0s 
+ ✔ Volume "bdk-env_chaindata-relay-node-charlie"                    Created                                                                                                           0.0s 
+ ✔ Volume "bdk-env_chaindata-relay-assethub-node-alice"             Created                                                                                                           0.0s 
+ ✔ Volume "bdk-env_chaindata-relay-node-bob"                        Created                                                                                                           0.0s 
+ ✔ Volume "bdk-env_chaindata-relay-moonbeam-node-alith"             Created                                                                                                           0.0s 
+ ✔ Volume "bdk-env_chaindata-relay-node-dave"                       Created                                                                                                           0.0s 
+ ✔ Volume "bdk-env_chaindata-relay-moonbeam-node-baltathar"         Created                                                                                                           0.0s 
+ ✔ Volume "bdk-env_chaindata-relay-moonbeam-node-baltathar-parent"  Created                                                                                                           0.0s 
+ ✔ Volume "bdk-env_chaindata-relay-assethub-node-bob"               Created                                                                                                           0.0s 
+ ✔ Volume "bdk-env_chaindata-relay-node-eve"                        Created                                                                                                           0.0s 
+ ✔ Container bdk-env-relay-moonbeam-node-alith-1                    Healthy                                                                                                           4.9s 
+ ✔ Container bdk-env-relay-node-alice-1                             Healthy                                                                                                           4.9s 
+ ✔ Container bdk-env-polkadot-apps-1                                Healthy                                                                                                           4.9s 
+ ✔ Container bdk-env-relay-node-charlie-1                           Healthy                                                                                                           4.9s 
+ ✔ Container bdk-env-relay-node-eve-1                               Healthy                                                                                                           4.9s 
+ ✔ Container bdk-env-relay-assethub-node-bob-1                      Healthy                                                                                                           4.9s 
+ ✔ Container bdk-env-relay-node-bob-1                               Healthy                                                                                                           4.9s 
+ ✔ Container bdk-env-relay-assethub-node-alice-1                    Healthy                                                                                                           4.9s 
+ ✔ Container bdk-env-relay-node-dave-1                              Healthy                                                                                                           4.9s 
+ ✔ Container bdk-env-relay-moonbeam-node-baltathar-1                Healthy                                                                                                           4.9s 
+ ✔ Container bdk-env-nginx-1                                        Healthy                                                                                                           4.4s 
+direnv: loading ~/dev/work/unique/baedeker-example/.envrc                                                                                                                                  
+direnv: loading ~/dev/work/unique/.envrc
+direnv: using flake ./nix
+direnv: nix-direnv: Using cached dev shell
+Baedeker env updated
+Enjoy your baedeker networks at http://127.0.0.1:9699/
+direnv: export +AR +AS +BDK_BALANCER +CC +CONFIG_SHELL +CXX +DETERMINISTIC_BUILD +HOST_PATH +IN_NIX_SHELL +LD +LIBCLANG_PATH +NIX_BINTOOLS +NIX_BINTOOLS_WRAPPER_TARGET_HOST_x86_64_unknown_linux_gnu +NIX_CC +NIX_CC_WRAPPER_TARGET_HOST_x86_64_unknown_linux_gnu +NIX_CFLAGS_COMPILE +NIX_ENFORCE_NO_NATIVE +NIX_HARDENING_ENABLE +NIX_LDFLAGS +NIX_PKG_CONFIG_WRAPPER_TARGET_HOST_x86_64_unknown_linux_gnu +NIX_STORE +NM +NODE_PATH +OBJCOPY +OBJDUMP +PKG_CONFIG +PKG_CONFIG_PATH +PROTOC +PYTHONHASHSEED +PYTHONNOUSERSITE +PYTHONPATH +RANLIB +READELF +RELAY_ASSETHUB_HTTP_URL +RELAY_ASSETHUB_ID +RELAY_ASSETHUB_NODE_ALICE_STASH +RELAY_ASSETHUB_NODE_BOB_STASH +RELAY_ASSETHUB_URL +RELAY_HTTP_URL +RELAY_MOONBEAM_HTTP_URL +RELAY_MOONBEAM_ID +RELAY_MOONBEAM_NODE_ALITH_STASH +RELAY_MOONBEAM_NODE_BALTATHAR_STASH +RELAY_MOONBEAM_URL +RELAY_URL +RUSTFLAGS +SIZE +SOURCE_DATE_EPOCH +STRINGS +STRIP +WINDRES +_PYTHON_HOST_PLATFORM +_PYTHON_SYSCONFIGDATA_NAME +__structuredAttrs +buildInputs +buildPhase +builder +cmakeFlags +configureFlags +depsBuildBuild +depsBuildBuildPropagated +depsBuildTarget +depsBuildTargetPropagated +depsHostHost +depsHostHostPropagated +depsTargetTarget +depsTargetTargetPropagated +doCheck +doInstallCheck +dontAddDisableDepTrack +mesonFlags +name +nativeBuildInputs +out +outputs +patches +phases +preferLocalBuild +propagatedBuildInputs +propagatedNativeBuildInputs +shell +shellHook +stdenv +strictDeps +system ~PATH ~XDG_DATA_DIRS
+```
+
+You can open the link the baedeker tells you (`http://127.0.0.1:9699/` in the example above). The link is provided via the `$BDK_BALANCER` env variable.
+When opened, you'll see a list of links to the running chains in the browser. 
