@@ -1,8 +1,8 @@
 import Web3, { AbiItem, HexString } from 'web3';
 import {Contract} from 'web3-eth-contract';
 import {readFile} from 'fs/promises';
-import xtoken_abi from '../contracts/contracts_XTokensInstance_sol_XTokensInstance.abi.json';
-import nft_abi from '../contracts/contracts_nft_sol_Nft.abi.json';
+import xtoken_abi from '../contracts/XTokensInstance_sol_XTokensInstance.abi.json';
+import nft_abi from '../contracts/nft_sol_Nft.abi.json';
 
 async function main() {
   console.log("Starting");
@@ -15,11 +15,11 @@ async function main() {
   web3.eth.defaultAccount = account.address;
   
   const xtoken_bin = '0x' + (
-    await readFile(`./contracts/contracts_XTokensInstance_sol_XTokensInstance.bin`)
+    await readFile(`./contracts/XTokensInstance_sol_XTokensInstance.bin`)
   ).toString();
 
   const nft_bin = '0x' + (
-    await readFile(`./contracts/contracts_nft_sol_Nft.bin`)
+    await readFile(`./contracts/nft_sol_Nft.bin`)
   ).toString();
 
   let nft_contract = await deployByAbi(
@@ -52,7 +52,17 @@ async function main() {
       [destination_enum_selector + destination_address + destination_network_id],
     ];
   const weight = 100;
-  await xtoken_contract.methods.transferNft(nft_contract.options.address, token_id, destination, weight).send({from: account.address});
+
+  const nft_asset = [
+    0,
+    ["0x04" + "03"]
+    //[nft_contract.options.address],
+  ];
+  const multi_asset = [nft_asset, token_id];
+
+  const fee = ["0x0000000000000000000000000000000000000802" /* Native Eth*/, 10]
+
+  await xtoken_contract.methods.transferNftWithFee(multi_asset, fee, destination, weight).send({from: account.address});
   console.log("Token sent");
 }
 

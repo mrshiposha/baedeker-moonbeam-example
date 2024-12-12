@@ -82,12 +82,17 @@ contract XTokensInstance is Xtokens {
         );
     }
 
-    function transferNft(
-        address nftAddress,
-        uint256 nftId,
+    function transferNftWithFee(
+        NftMultiAsset memory nft,
+        Currency memory fee,
         Multilocation memory destination,
         uint64 weight
     ) external override {
-        XTOKENS_CONTRACT.transferNft(nftAddress, nftId, destination, weight);
+        XTOKENS_CONTRACT.transferNftWithFee(
+            nft,
+            fee,
+            destination,
+            weight
+        );
     }
 }
