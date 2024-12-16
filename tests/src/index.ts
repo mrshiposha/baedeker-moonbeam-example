@@ -53,17 +53,24 @@ async function main() {
     ];
   const weight = 100;
 
-  const nft_asset = [
+  const account_id_20_enum_selector = "0x03";
+  const nft_location = [
     0,
-    ["0x04" + "03"]
-    //[nft_contract.options.address],
+    [account_id_20_enum_selector + nft_contract.options.address?.substring(2) + destination_network_id]
   ];
-  const multi_asset = [nft_asset, token_id];
+  const asset_instance_index_enum_selector = "0x01";
+  const nft_asset_instance = asset_instance_index_enum_selector + token_id.toString(16).padStart(32, "0");
+  const nft_asset = [nft_location, nft_asset_instance];
 
-  const fee = ["0x0000000000000000000000000000000000000802" /* Native Eth*/, 10]
+  const fee_location = [
+    0,
+    [account_id_20_enum_selector + "0000000000000000000000000000000000000802" /* Native Eth*/ + destination_network_id]
+  ];
+  const fee_asset = [fee_location, 10]
 
-  await xtoken_contract.methods.transferNftWithFee(multi_asset, fee, destination, weight).send({from: account.address});
-  console.log("Token sent");
+  console.log("Starting NFT sending");
+  await xtoken_contract.methods.transferNftWithFee(nft_asset, fee_asset, destination, weight).send({from: account.address});
+  console.log("NFT Token sent");
 }
 
 async function deployByAbi(web3: Web3, signer: string, abi: AbiItem[], object: string, gas?: HexString, args?: any[]): Promise<Contract<AbiItem[]>> {

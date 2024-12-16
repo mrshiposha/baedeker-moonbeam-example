@@ -26,7 +26,12 @@ interface Xtokens {
 
     struct NftMultiAsset {
         Multilocation location;
-        uint256 nft_id;
+        bytes nft_id;
+    }
+
+    struct EvmCurrency {
+        Multilocation currencyAddress;
+        uint256 amount;
     }
 
     // A Currency is defined by address and the amount to be transferred
@@ -137,7 +142,7 @@ interface Xtokens {
 
     function transferNftWithFee(
         NftMultiAsset memory nft,
-        Currency memory fee,
+        EvmCurrency memory fee,
         Multilocation memory destination,
         uint64 weight
     ) external;
