@@ -4,6 +4,8 @@ pragma solidity >=0.8.3;
 import "./Xtokens.sol";
 
 contract XTokensInstance is Xtokens {
+    receive() external payable { }
+
     function transfer(
         address currencyAddress,
         uint256 amount,

@@ -11,30 +11,7 @@ local relay = {
     validatorIdAssignment: 'staking',
     spec: {Genesis:{
         chain: relay_spec,
-        modify:: bdk.mixer([
-            m.genericRelay($),
-            {
-                genesis+: {
-                    runtimeGenesis+: {
-                        runtime+: {
-                            configuration+: {
-                                config+: {
-                                    async_backing_params+: {
-                                        allowed_ancestry_len: 3,
-                                        max_candidate_depth: 4,
-                                    },
-                                    scheduling_lookahead:5,
-                                    max_validators_per_core:2,
-                                    minimum_backing_votes:2,
-                                    needed_approvals:2,
-                                    on_demand_cores:5,
-                                },
-                            },
-                        },
-                    },
-                },
-            },
-        ]),
+        modify:: m.genericRelay($),
     }},
     nodes: {
         [name]: {
@@ -82,14 +59,39 @@ local moonbeam = {
 		[name]: {
 			bin: $.bin,
 			wantedKeys: 'para-nimbus',
+            extraArgs: [
+                '-lxcm=trace',
+                '-levm=trace',
+            ],
 		},
 		for name in ['alith', 'baltathar']
+	},
+};
+
+local unique = {
+	name: 'unique',
+	bin: 'bin/unique',
+	paraId: 1001,
+	spec: {Genesis:{
+		modify:: m.genericPara($),
+	}},
+	nodes: {
+		[name]: {
+			bin: $.bin,
+			wantedKeys: 'para',
+			extraArgs: [
+				'--increase-future-pool',
+    			'--pool-type=fork-aware',
+                '-lxcm=trace'
+			],
+		},
+		for name in ['alice', 'bob', 'charlie', 'dave', 'eve']
 	},
 };
 
 relay + {
     parachains: {
         [para.name]: para,
-        for para in [assethub, moonbeam]
+        for para in [assethub, moonbeam, unique]
     },
 }

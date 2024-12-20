@@ -2,6 +2,8 @@
   "name": "moonbeam-tests",
   "version": "1.0.0",
   "main": "src/index.js",
+  "type": "module",
+  "module": "es2022",
   "license": "MIT",
   "scripts": {
     "build": "tsc",
