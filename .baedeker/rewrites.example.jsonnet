@@ -5,4 +5,6 @@ function(prev, repoDir)
 
 	# FIXME
 	'bin/moonbeam': '/absolute/path/to/moonbeam/target/release/moonbeam',
+	'bin/unique': '/absolute/path/to/unique/chain/target/release/unique-collator',
+
 })(prev)
