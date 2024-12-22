@@ -1,19 +1,24 @@
 {
   "name": "moonbeam-tests",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "",
   "type": "module",
   "module": "es2022",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
-    "tests": "npx tsc && node dist/src/index.js"
+    "openHrmpChannels": "yarn node --no-warnings=ExperimentalWarning --loader ts-node/esm src/openHrmpChannels.ts",
+    "deployContracts": "yarn node --no-warnings=ExperimentalWarning --loader ts-node/esm src/deployContracts.ts",
+    "registerMoonbeamAssetsOnUnique": "yarn node --no-warnings=ExperimentalWarning --loader ts-node/esm src/registerMoonbeamAssetsOnUnique.ts",
+    "mintAndTransferNft": "yarn node --no-warnings=ExperimentalWarning --loader ts-node/esm src/mintAndTransferNft.ts"
   },
   "devDependencies": {
+    "ts-node": "^10.9.1",
     "typescript": "^5.7.2"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^5.1.0",
+    "@polkadot/api": "^15.0.2",
+    "@scale-codec/core": "^2.0.1",
     "solc": "^0.8.28",
     "web3": "^4.15.0"
   }
