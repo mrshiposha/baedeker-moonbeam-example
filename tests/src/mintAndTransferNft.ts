@@ -13,12 +13,12 @@ async function waitForFinalization() {
   console.log('awaiting finalization...DONE');
 }
 
-function array2hex(array: Uint8Array) {
+function array2hex(array: Uint8Array, reverse: boolean = true) {
   const buffer = array.buffer;
-  return [...new Uint8Array(buffer)]
-      .map(x => x.toString(16).padStart(2, '0'))
-      .reverse()
-      .join('');
+  const bytes = [...new Uint8Array(buffer)]
+      .map(x => x.toString(16).padStart(2, '0'));
+
+  return (reverse ? bytes.reverse() : bytes).join('');
 }
 
 async function main() {
@@ -157,14 +157,14 @@ async function main() {
 
   const uniqueParaId = Number(process.env.RELAY_UNIQUE_ID);
   const parachainSovereignAccountOnMoonbeam = (paraId: number) => {
-    const encodedParaId = array2hex(WalkerImpl.encode(paraId, encodeU32));
+    const encodedParaId = array2hex(WalkerImpl.encode(paraId, encodeU32), false);
   
     const addrPrefix = "7369626c" + encodedParaId;
     const addrByteLength = 20;
     const addrHexLength = addrByteLength * 2;
   
     return "0x" + addrPrefix.padEnd(addrHexLength, "0");
-  };
+  };  
 
   console.log("Xtokens contract shim NFT balance", await nftContract.methods.balanceOf(xtokensContractShim.options.address).call());
   console.log("Unique SA NFT balance:", await nftContract.methods.balanceOf(parachainSovereignAccountOnMoonbeam(uniqueParaId)).call());
@@ -178,7 +178,6 @@ async function main() {
 
   console.log("Xtokens contract shim NFT balance", await nftContract.methods.balanceOf(xtokensContractShim.options.address).call());
 
-  // FIXME
   console.log("Unique SA NFT balance:", await nftContract.methods.balanceOf(parachainSovereignAccountOnMoonbeam(uniqueParaId)).call());
 
   web3.currentProvider?.disconnect();
